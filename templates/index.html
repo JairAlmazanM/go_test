@@ -3,7 +3,7 @@
 <head>
     <title>Hello, World!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com; style-src 'self' https://cdn.jsdelivr.net">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">    
     <link rel="stylesheet" href="/static/css/styles.css">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -16,8 +16,7 @@
     <!-- Your content here -->
     <button hx-get="/path/to/content" hx-target="#content">Load Content</button>
     <div id="content"></div>
-    
-    <script src="https://cdn.tailwindcss.com/2.2.19/tailwind.min.js"></script>
+
     <script src="/static/js/htmx.min.js"></script>
 </body>
 </html>

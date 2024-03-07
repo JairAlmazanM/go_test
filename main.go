@@ -3,6 +3,7 @@ package main
 import (
     "html/template"
     "net/http"
+    "strings"
 )
 
 func main() {
@@ -23,10 +24,19 @@ func main() {
         w.Write([]byte("This is the content loaded by htmx."))
     })
 
-    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+    http.Handle("/static/", correctContentType(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
 
     err := http.ListenAndServe(":8080", nil)
     if err != nil {
         panic(err)
     }
+}
+
+func correctContentType(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        if strings.HasSuffix(r.URL.Path, ".css") {
+            w.Header().Add("Content-Type", "text/css")
+        }
+        next.ServeHTTP(w, r)
+    })
 }
