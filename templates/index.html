@@ -14,7 +14,10 @@
     <h1>Hello, World!</h1>
 
     <!-- Your content here -->
-
+    <button hx-get="/path/to/content" hx-target="#content">Load Content</button>
+    <div id="content"></div>
+    
     <script src="https://cdn.tailwindcss.com/2.2.19/tailwind.min.js"></script>
+    <script src="/static/js/htmx.min.js"></script>
 </body>
 </html>

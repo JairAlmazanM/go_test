@@ -19,6 +19,10 @@ func main() {
         }
     })
 
+    http.HandleFunc("/path/to/content", func(w http.ResponseWriter, r *http.Request) {
+        w.Write([]byte("This is the content loaded by htmx."))
+    })
+
     http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
     err := http.ListenAndServe(":8080", nil)

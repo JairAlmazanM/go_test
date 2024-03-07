@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JairAlmazanM/go_test#readme",
   "dependencies": {
+    "htmx.org": "^1.9.10",
     "tailwindcss": "^3.4.1"
   }
 }
