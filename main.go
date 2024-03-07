@@ -1,15 +1,28 @@
 package main
 
 import (
-    "fmt"
+    "html/template"
     "net/http"
 )
 
 func main() {
-    http.HandleFunc("/", HelloServer)
-    http.ListenAndServe(":8080", nil)
-}
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        tmpl, err := template.ParseFiles("templates/index.html")
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
 
-func HelloServer(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
+        err = tmpl.Execute(w, nil)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+    })
+
+    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        panic(err)
+    }
 }
